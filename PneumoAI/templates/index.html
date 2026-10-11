@@ -1,0 +1,535 @@
+
+{% extends "base.html" %}
+
+{% block title %}Home | PneumoAI{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --primary: #0f766e;
+        --primary-dark: #115e59;
+        --light-bg: #f0fdfa;
+        --text-dark: #163332;
+    }
+
+    body {
+        background: #f8fafc;
+        color: var(--text-dark);
+    }
+
+    .hero {
+        background: linear-gradient(135deg, #ecfdf5, #eff6ff);
+        padding: 80px 0;
+        overflow: hidden;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        background: #ccfbf1;
+        color: #115e59;
+        padding: 8px 15px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.2rem, 5vw, 3.7rem);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -1.5px;
+    }
+
+    .hero h1 span {
+        color: var(--primary);
+    }
+
+    .hero p {
+        color: #64748b;
+        font-size: 1.05rem;
+        line-height: 1.8;
+    }
+
+    .hero-icon {
+        font-size: 180px;
+        color: var(--primary);
+        opacity: 0.85;
+    }
+
+    .feature-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 25px;
+        height: 100%;
+        background: white;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07);
+    }
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: #ccfbf1;
+        color: var(--primary);
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+    .upload-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 22px;
+        background: white;
+        padding: 32px;
+        box-shadow: 0 15px 45px rgba(15, 23, 42, 0.05);
+    }
+
+    .drop-zone {
+        border: 2px dashed #99c9c4;
+        border-radius: 18px;
+        padding: 35px 20px;
+        text-align: center;
+        background: #f8fffd;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragover {
+        background: #ecfdf5;
+        border-color: var(--primary);
+    }
+
+    .upload-icon {
+        font-size: 45px;
+        color: var(--primary);
+    }
+
+    .btn-primary-custom {
+        background: var(--primary);
+        border: 0;
+        color: white;
+        padding: 13px 25px;
+        border-radius: 10px;
+        font-weight: 700;
+    }
+
+    .btn-primary-custom:hover {
+        background: var(--primary-dark);
+        color: white;
+    }
+
+    .preview-image {
+        max-height: 340px;
+        max-width: 100%;
+        object-fit: contain;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+
+    .notice {
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        border-radius: 14px;
+        padding: 18px;
+        color: #9a3412;
+    }
+
+    @media (max-width: 767px) {
+        .hero {
+            padding: 55px 0;
+        }
+
+        .upload-card {
+            padding: 22px;
+        }
+
+        .hero-icon {
+            font-size: 110px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-7">
+                <span class="hero-badge">
+                    <i class="bi bi-cpu me-1"></i>
+                    AI-POWERED IMAGE CLASSIFICATION
+                </span>
+
+                <h1 class="mb-4">
+                    Smarter Chest X-ray
+                    <span>Analysis.</span>
+                </h1>
+
+                <p class="mb-4">
+                    Upload a chest X-ray image to explore the output
+                    of a deep-learning model trained for pneumonia
+                    image classification.
+                </p>
+
+                <a href="#analyze"
+                   class="btn btn-primary-custom me-2 mb-2">
+                    <i class="bi bi-upload me-2"></i>
+                    Analyze X-ray
+                </a>
+
+                <a href="{{ url_for('about') }}"
+                   class="btn btn-outline-secondary mb-2">
+                    Learn More
+                    <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+
+                <div class="mt-4 text-secondary small">
+                    <i class="bi bi-shield-check text-success me-1"></i>
+                    Educational research prototype
+                </div>
+            </div>
+
+            <div class="col-lg-5 text-center">
+                <i class="bi bi-lungs hero-icon"
+                   aria-hidden="true"></i>
+
+                <p class="small text-secondary mt-2">
+                    Chest imaging • Deep learning • AI research
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Features Section -->
+<section class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Designed for AI Research</h2>
+        <p class="text-secondary">
+            A simple interface for exploring medical image classification.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                </div>
+                <h5 class="fw-bold">Easy Image Upload</h5>
+                <p class="text-secondary mb-0">
+                    Select a supported chest X-ray image from your device
+                    and preview it before submission.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-cpu"></i>
+                </div>
+                <h5 class="fw-bold">Deep Learning</h5>
+                <p class="text-secondary mb-0">
+                    Connect a trained image classification model
+                    through the Python backend.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-clipboard2-data"></i>
+                </div>
+                <h5 class="fw-bold">Prediction Results</h5>
+                <p class="text-secondary mb-0">
+                    Display the model's output and relevant limitations
+                    on a dedicated results page.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Upload Section -->
+<section class="container py-5" id="analyze">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="upload-card">
+                <div class="text-center mb-4">
+                    <span class="hero-badge">IMAGE ANALYSIS</span>
+                    <h2 class="fw-bold">Upload Chest X-ray</h2>
+                    <p class="text-secondary">
+                        Choose an image and preview it before continuing.
+                    </p>
+                </div>
+
+                <form action="{{ url_for('predict') }}"
+                      method="POST"
+                      enctype="multipart/form-data"
+                      id="uploadForm">
+
+                    <!-- CSRF token can be added here if Flask-WTF is used. -->
+
+                    <label for="xray"
+                           class="form-label fw-semibold">
+                        Chest X-ray Image
+                    </label>
+
+                    <div class="drop-zone" id="dropZone"
+                         role="button" tabindex="0"
+                         aria-label="Choose or drop a chest X-ray image">
+
+                        <i class="bi bi-cloud-arrow-up upload-icon"
+                           aria-hidden="true"></i>
+
+                        <h5 class="fw-bold mt-3">
+                            Drag and drop your image
+                        </h5>
+
+                        <p class="text-secondary small mb-3">
+                            Or click below to browse your files
+                        </p>
+
+                        <input type="file"
+                               class="form-control"
+                               id="xray"
+                               name="file"
+                               accept=".png,.jpg,.jpeg,image/png,image/jpeg"
+                               required>
+
+                        <small class="text-secondary d-block mt-2">
+                            Supported formats: JPG, JPEG, PNG.
+                            Maximum size must be enforced by the server.
+                        </small>
+
+                    </div>
+
+                    <div id="previewContainer"
+                         class="text-center d-none">
+
+                        <img id="imagePreview"
+                             class="preview-image"
+                             alt="Selected chest X-ray preview">
+
+                        <p id="fileName"
+                           class="small text-secondary mt-2"></p>
+
+                        <button type="button"
+                                id="removeImage"
+                                class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-trash me-1"></i>
+                            Remove Image
+                        </button>
+                    </div>
+
+                    <div id="uploadError"
+                         class="alert alert-danger mt-3 d-none"
+                         role="alert"></div>
+
+                    <button type="submit"
+                            id="analyzeButton"
+                            class="btn btn-primary-custom w-100 mt-4">
+                        <i class="bi bi-search me-2"></i>
+                        Analyze Image
+                    </button>
+
+                    <p class="text-secondary small text-center mt-3 mb-0">
+                        Images should be handled securely and deleted
+                        according to the application's retention policy.
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Medical Disclaimer -->
+<section class="container pb-5">
+    <div class="notice">
+        <h6 class="fw-bold">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            Medical Disclaimer
+        </h6>
+
+        <p class="mb-0 small">
+            This project is intended for educational and research purposes.
+            A model prediction cannot confirm or rule out pneumonia.
+            Do not use this application to make treatment decisions.
+            Consult a qualified healthcare professional for medical
+            assessment.
+        </p>
+    </div>
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    (() => {
+        const input = document.getElementById("xray");
+        const dropZone = document.getElementById("dropZone");
+        const previewContainer = document.getElementById("previewContainer");
+        const preview = document.getElementById("imagePreview");
+        const fileName = document.getElementById("fileName");
+        const removeButton = document.getElementById("removeImage");
+        const errorBox = document.getElementById("uploadError");
+        const form = document.getElementById("uploadForm");
+
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png"
+        ];
+
+        let previewUrl = null;
+
+        function showError(message) {
+            errorBox.textContent = message;
+            errorBox.classList.remove("d-none");
+        }
+
+        function clearError() {
+            errorBox.textContent = "";
+            errorBox.classList.add("d-none");
+        }
+
+        function clearPreview() {
+            if (previewUrl) {
+                URL.revokeObjectURL(previewUrl);
+                previewUrl = null;
+            }
+
+            preview.removeAttribute("src");
+            previewContainer.classList.add("d-none");
+        }
+
+        function processFile(file) {
+            clearError();
+
+            if (!file) {
+                return;
+            }
+
+            if (!allowedTypes.includes(file.type)) {
+                input.value = "";
+                clearPreview();
+                showError("Please select a JPG, JPEG or PNG image.");
+                return;
+            }
+
+            // Client-side convenience check only.
+            // Enforce the real file-size limit on the server too.
+            const maxSize = 10 * 1024 * 1024;
+
+            if (file.size > maxSize) {
+                input.value = "";
+                clearPreview();
+                showError("Image must be smaller than 10 MB.");
+                return;
+            }
+
+            clearPreview();
+
+            previewUrl = URL.createObjectURL(file);
+            preview.src = previewUrl;
+            fileName.textContent = file.name;
+            previewContainer.classList.remove("d-none");
+        }
+
+        input.addEventListener("change", () => {
+            processFile(input.files[0]);
+        });
+
+        dropZone.addEventListener("click", (event) => {
+            if (event.target !== input) {
+                input.click();
+            }
+        });
+
+        dropZone.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                input.click();
+            }
+        });
+
+        ["dragenter", "dragover"].forEach((eventName) => {
+            dropZone.addEventListener(eventName, (event) => {
+                event.preventDefault();
+                dropZone.classList.add("dragover");
+            });
+        });
+
+        ["dragleave", "drop"].forEach((eventName) => {
+            dropZone.addEventListener(eventName, (event) => {
+                event.preventDefault();
+                dropZone.classList.remove("dragover");
+            });
+        });
+
+        dropZone.addEventListener("drop", (event) => {
+            const files = event.dataTransfer.files;
+
+            if (!files.length) {
+                return;
+            }
+
+            try {
+                const transfer = new DataTransfer();
+                transfer.items.add(files[0]);
+                input.files = transfer.files;
+                processFile(files[0]);
+            } catch {
+                showError(
+                    "Could not attach the dropped file. Please browse for it."
+                );
+            }
+        });
+
+        removeButton.addEventListener("click", () => {
+            input.value = "";
+            clearPreview();
+            clearError();
+        });
+
+        form.addEventListener("submit", (event) => {
+            clearError();
+
+            if (!input.files.length) {
+                event.preventDefault();
+                showError("Please select a chest X-ray image first.");
+                return;
+            }
+
+            if (!allowedTypes.includes(input.files[0].type)) {
+                event.preventDefault();
+                showError("Please select a valid JPG or PNG image.");
+            }
+        });
+
+        window.addEventListener("beforeunload", clearPreview);
+    })();
+</script>
+{% endblock %}

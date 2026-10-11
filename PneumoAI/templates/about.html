@@ -1,0 +1,140 @@
+
+{% extends "base.html" %}
+
+{% block title %}About Project | PneumoAI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .about-hero {
+        background: linear-gradient(135deg, #ecfdf5, #eff6ff);
+        padding: 65px 0;
+    }
+
+    .about-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 25px;
+        height: 100%;
+    }
+
+    .about-icon {
+        color: #0f766e;
+        font-size: 30px;
+        margin-bottom: 15px;
+    }
+
+    .tech-badge {
+        background: #ccfbf1;
+        color: #115e59;
+        padding: 8px 13px;
+        border-radius: 8px;
+        display: inline-block;
+        margin: 5px;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="about-hero">
+    <div class="container text-center">
+        <i class="bi bi-heart-pulse-fill display-3 text-success"></i>
+
+        <h1 class="fw-bold mt-3">About PneumoAI</h1>
+
+        <p class="text-secondary mx-auto"
+           style="max-width: 720px;">
+            An educational Python and deep-learning project that
+            demonstrates image classification using chest X-ray images.
+        </p>
+    </div>
+</section>
+
+<section class="container py-5">
+
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <div class="about-card">
+                <i class="bi bi-bullseye about-icon"></i>
+                <h4 class="fw-bold">Project Objective</h4>
+                <p class="text-secondary mb-0">
+                    To demonstrate how a trained machine-learning model
+                    can process an image and return a classification output
+                    through a web application.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="about-card">
+                <i class="bi bi-cpu about-icon"></i>
+                <h4 class="fw-bold">Deep Learning Model</h4>
+                <p class="text-secondary mb-0">
+                    A compatible trained image-classification model is
+                    loaded by the Python backend. Its architecture,
+                    training data and performance should be documented
+                    in the project report.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="about-card">
+                <i class="bi bi-diagram-3 about-icon"></i>
+                <h4 class="fw-bold">Application Workflow</h4>
+                <ol class="text-secondary mb-0">
+                    <li>User selects a chest X-ray image.</li>
+                    <li>Server validates the uploaded file.</li>
+                    <li>Image preprocessing matches model requirements.</li>
+                    <li>The model generates a classification output.</li>
+                    <li>The application displays the result.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="about-card">
+                <i class="bi bi-code-slash about-icon"></i>
+                <h4 class="fw-bold">Technology Stack</h4>
+                <div class="mt-2">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Flask</span>
+                    <span class="tech-badge">TensorFlow / Keras</span>
+                    <span class="tech-badge">HTML5</span>
+                    <span class="tech-badge">CSS3</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Bootstrap</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="alert alert-warning mt-5">
+        <h5 class="fw-bold">
+            <i class="bi bi-shield-exclamation me-2"></i>
+            Scope and Limitations
+        </h5>
+
+        <p class="mb-0">
+            PneumoAI is an educational prototype, not a clinically
+            validated diagnostic system. Performance depends on the
+            training data, preprocessing, model calibration and external
+            validation. Predictions must not replace professional
+            medical assessment.
+        </p>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('index') }}" class="btn btn-success">
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to Home
+        </a>
+    </div>
+
+</section>
+
+{% endblock %}
